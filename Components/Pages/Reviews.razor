@@ -22,200 +22,406 @@
             </span>
         </div>
 
-        <!-- Section Heading & Action (Vertical Stack per Section 4.7) -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal-on-scroll delay-100">
-            <div class="max-w-2xl">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
-                    Patient Reviews &amp; Ratings
-                </h1>
-                <p class="text-neutral-600 text-base sm:text-lg mt-3 leading-relaxed">
-                    Verified patient feedback, clinical scores, and real experiences from consultations across all 50 states.
-                </p>
-            </div>
-            <div>
-                <button type="button"
-                        @onclick="OpenStoryModal"
-                        class="motion-btn motion-btn-dark px-6 py-3.5 rounded-full text-white text-xs font-semibold hover:bg-neutral-800 transition flex items-center space-x-2.5 group shadow-sm flex-shrink-0 cursor-pointer"
-                        aria-label="Open review modal">
-                    <span class="w-5 h-5 rounded-full bg-brand-lime text-neutral-950 flex items-center justify-center font-bold text-xs group-hover:rotate-45 transition-transform duration-300">
-                        +
-                    </span>
-                    <span>Share Your Story</span>
-                </button>
-            </div>
+        <!-- Section Heading -->
+        <div class="max-w-3xl mb-10 reveal-on-scroll delay-100">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
+                Patient Reviews &amp; Ratings
+            </h1>
+            <p class="text-neutral-600 text-base sm:text-lg mt-3 leading-relaxed">
+                Verified patient feedback, clinical scores, and real experiences from consultations across all 50 states.
+            </p>
         </div>
 
-        <!-- Aggregate Score Bento Strip -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12 reveal-on-scroll delay-150">
-            <!-- Overall Rating Tile -->
-            <div class="md:col-span-4 bg-brand-dark text-white rounded-3xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
-                <div class="absolute -right-12 -bottom-12 w-44 h-44 rounded-full bg-brand-lime/10 blur-2xl pointer-events-none"></div>
-                <div>
-                    <span class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Overall Satisfaction</span>
-                    <div class="flex items-baseline space-x-3 mt-4">
-                        <span class="text-5xl sm:text-6xl font-extrabold text-white tracking-tight">4.9</span>
-                        <div class="space-y-1">
-                            <div class="flex items-center space-x-1">
-                                @for (int i = 0; i < 5; i++)
-                                {
-                                    <svg class="w-4 h-4 fill-brand-lime text-brand-lime" viewBox="0 0 24 24">
-                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                    </svg>
-                                }
+        <!-- Unified Clinical Metrics Strip -->
+        <div class="bg-white rounded-3xl border border-neutral-200/90 shadow-sm p-6 sm:p-8 mb-8 reveal-on-scroll delay-150">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Segment 1: Overall Satisfaction & Consultation Volume -->
+                <div class="lg:col-span-4 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-neutral-500 uppercase tracking-wider">Overall Satisfaction</span>
+                        <div class="flex items-baseline space-x-3 mt-3">
+                            <span class="text-5xl sm:text-6xl font-extrabold text-neutral-900 tracking-tight">4.9</span>
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-1">
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        <svg class="w-4 h-4 fill-amber-400 text-amber-400" viewBox="0 0 24 24">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                        </svg>
+                                    }
+                                </div>
+                                <p class="text-xs text-neutral-500 font-medium">Out of 5.0 clinical rating</p>
                             </div>
-                            <p class="text-xs text-neutral-400">Out of 5.0 rating</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500">
+                        <span>52,480+ verified consults</span>
+                        <span class="text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">98.6% recommended</span>
+                    </div>
+                </div>
+
+                <!-- Segment 2: Rating Distribution (Clean, no clunky filled background tracks) -->
+                <div class="lg:col-span-4 lg:border-l lg:border-r border-neutral-200/80 lg:px-8 space-y-2.5">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xs font-bold text-neutral-500 uppercase tracking-wider">Rating Distribution</h3>
+                        <span class="text-[11px] text-neutral-400 font-medium">Post-consultation verified</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-neutral-700">5 stars</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-neutral-400 font-mono text-[11px]">49,331</span>
+                                <span class="font-bold text-neutral-900 w-8 text-right">94%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-neutral-700">4 stars</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-neutral-400 font-mono text-[11px]">2,624</span>
+                                <span class="font-bold text-neutral-900 w-8 text-right">5%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-neutral-700">3 stars</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-neutral-400 font-mono text-[11px]">525</span>
+                                <span class="font-bold text-neutral-900 w-8 text-right">1%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-neutral-400">
+                            <span class="font-medium">1-2 stars</span>
+                            <span class="font-bold text-neutral-500 w-8 text-right">&lt;1%</span>
                         </div>
                     </div>
                 </div>
-                <div class="pt-6 border-t border-neutral-800 text-xs text-neutral-400 flex items-center justify-between">
-                    <span>52,480+ verified consults</span>
-                    <span class="text-brand-lime font-semibold">98.6% recommended</span>
-                </div>
-            </div>
 
-            <!-- Score Breakdown Tile -->
-            <div class="md:col-span-5 bg-[#F8F9FA] rounded-3xl p-8 border border-neutral-200/90 shadow-sm flex flex-col justify-between">
-                <div>
-                    <h3 class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-4">Rating Distribution</h3>
-                    <div class="space-y-2.5">
-                        <div class="flex items-center space-x-3 text-xs">
-                            <span class="w-12 font-medium text-neutral-700">5 stars</span>
-                            <div class="flex-grow bg-neutral-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-brand-dark h-full rounded-full" style="width: 94%;"></div>
-                            </div>
-                            <span class="w-8 text-right font-bold text-neutral-900">94%</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-xs">
-                            <span class="w-12 font-medium text-neutral-700">4 stars</span>
-                            <div class="flex-grow bg-neutral-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-brand-dark/70 h-full rounded-full" style="width: 5%;"></div>
-                            </div>
-                            <span class="w-8 text-right font-bold text-neutral-900">5%</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-xs">
-                            <span class="w-12 font-medium text-neutral-700">3 stars</span>
-                            <div class="flex-grow bg-neutral-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-brand-dark/40 h-full rounded-full" style="width: 1%;"></div>
-                            </div>
-                            <span class="w-8 text-right font-bold text-neutral-900">1%</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-xs">
-                            <span class="w-12 font-medium text-neutral-700">2 stars</span>
-                            <div class="flex-grow bg-neutral-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-brand-dark/20 h-full rounded-full" style="width: 0%;"></div>
-                            </div>
-                            <span class="w-8 text-right font-bold text-neutral-900">0%</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-xs">
-                            <span class="w-12 font-medium text-neutral-700">1 star</span>
-                            <div class="flex-grow bg-neutral-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-brand-dark/20 h-full rounded-full" style="width: 0%;"></div>
-                            </div>
-                            <span class="w-8 text-right font-bold text-neutral-900">0%</span>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-[11px] text-neutral-500 pt-4 mt-2 border-t border-neutral-200/80">
-                    Compiled directly from post-consultation digital verification surveys.
-                </p>
-            </div>
-
-            <!-- Trust Highlights Tile -->
-            <div class="md:col-span-3 bg-brand-lime text-neutral-950 rounded-3xl p-8 flex flex-col justify-between shadow-md group">
-                <div>
-                    <span class="text-xs font-bold text-neutral-900/70 uppercase tracking-wider">Clinical Standards</span>
-                    <h3 class="text-xl font-bold mt-2 text-neutral-950">100% Verified Consultations</h3>
-                    <p class="text-xs text-neutral-900/80 mt-2 leading-relaxed">
-                        Every review is matched against a verified physician appointment or prescription delivery.
-                    </p>
-                </div>
-                <div class="pt-4 border-t border-black/10 flex items-center space-x-2 text-xs font-bold text-neutral-950">
-                    <svg class="w-4 h-4 text-neutral-950 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                    <span>HIPAA Data Governance</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3D Coverflow Showcase (Matching Reference Image) -->
-        <div class="mb-16 reveal-on-scroll delay-200">
-            <StaggeredTestimonials @ref="testimonialsRef" CustomReviews="activeReviews" />
-        </div>
-
-        <!-- Clinical Experience Invitation Banner -->
-        <div class="max-w-4xl mx-auto reveal-on-scroll delay-250 mb-12">
-            <div class="bg-[#0D1016] text-white rounded-3xl p-8 sm:p-12 border border-neutral-800 shadow-2xl relative overflow-hidden group">
-                <div class="absolute -right-16 -top-16 w-60 h-60 rounded-full bg-brand-lime/10 blur-[90px] pointer-events-none"></div>
-
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-                    <div class="max-w-xl">
-                        <div class="flex items-center space-x-2 mb-3">
-                            <span class="inline-block px-3 py-1 rounded-lg bg-brand-lime text-neutral-950 text-xs font-bold uppercase tracking-wider shadow-xs">
-                                Share Your Story
-                            </span>
-                            <span class="text-xs text-neutral-400 font-medium">
-                                Verified Patient Registry
-                            </span>
-                        </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
-                            Had a consultation with a MediConsult physician?
-                        </h2>
-                        <p class="text-neutral-400 text-xs sm:text-sm mt-2 leading-relaxed">
-                            Your feedback directly informs physician clinical performance and helps future patients navigate their care options. All ratings are authenticated via HIPAA-compliant verification.
+                <!-- Segment 3: Clinical Trust & Standards -->
+                <div class="lg:col-span-4 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-xs font-bold text-neutral-500 uppercase tracking-wider">Clinical Standards</span>
+                        <h3 class="text-lg font-bold text-neutral-900 mt-2">100% Verified Consultations</h3>
+                        <p class="text-xs text-neutral-600 mt-1 leading-relaxed">
+                            Every review is matched against an authenticated physician encounter or prescription record.
                         </p>
+                    </div>
+                    <div class="pt-3 border-t border-neutral-100 flex items-center space-x-2 text-xs font-semibold text-neutral-900">
+                        <div class="w-6 h-6 rounded-lg bg-brand-lime text-neutral-950 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-3.5 h-3.5 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <span>HIPAA Data Governance Protected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Merged Landscape Story & Review Card (White Theme, Same Width, Positioned Below Overall Satisfaction) -->
+        <div class="w-full mb-14 reveal-on-scroll delay-200">
+            <div class="relative overflow-hidden bg-white text-neutral-900 rounded-3xl p-6 sm:p-10 border border-neutral-200/90 shadow-xl group">
+                <!-- Subtle Ambient Highlight -->
+                <div class="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-brand-lime/10 blur-[100px] pointer-events-none"></div>
+                <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-brand-lime/5 blur-[90px] pointer-events-none"></div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                    <!-- Left Column: Context, Trust Assurances & HIPAA Verification -->
+                    <div class="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
+                        <div>
+                            <div class="flex items-center space-x-2.5 mb-3">
+                                <span class="inline-block px-3 py-1 rounded-lg bg-brand-lime text-neutral-950 text-xs font-bold uppercase tracking-wider shadow-xs">
+                                    Share Your Story
+                                </span>
+                                <span class="text-xs text-neutral-500 font-medium">
+                                    Verified Patient Registry
+                                </span>
+                            </div>
+
+                            <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 leading-tight">
+                                Had a consultation with a MediConsult physician?
+                            </h3>
+
+                            <p class="text-neutral-600 text-xs sm:text-sm mt-3 leading-relaxed">
+                                Your feedback directly informs physician clinical performance and helps future patients navigate their care options. All ratings are authenticated via HIPAA-compliant verification and published to the patient showcase.
+                            </p>
+                        </div>
 
                         <!-- Trust Badges -->
-                        <div class="flex flex-wrap items-center gap-4 text-xs text-neutral-400 mt-6 pt-6 border-t border-neutral-800/80">
-                            <span class="flex items-center space-x-1.5">
-                                <svg class="w-4 h-4 text-brand-lime stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                                <span>100% Verified Records</span>
-                            </span>
-                            <span class="flex items-center space-x-1.5">
-                                <svg class="w-4 h-4 text-brand-lime stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                </svg>
-                                <span>HIPAA Privacy Protected</span>
-                            </span>
-                            <span class="flex items-center space-x-1.5">
-                                <svg class="w-4 h-4 text-brand-lime stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                </svg>
-                                <span>Instant Showcase Display</span>
-                            </span>
+                        <div class="space-y-3 pt-6 border-t border-neutral-100">
+                            <div class="flex items-center space-x-2.5 text-xs text-neutral-700">
+                                <div class="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3.5 h-3.5 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <span class="font-medium">100% Authenticated Physician Records</span>
+                            </div>
+
+                            <div class="flex items-center space-x-2.5 text-xs text-neutral-700">
+                                <div class="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3.5 h-3.5 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                </div>
+                                <span class="font-medium">HIPAA Privacy &amp; Data Governance</span>
+                            </div>
+
+                            <div class="flex items-center space-x-2.5 text-xs text-neutral-700">
+                                <div class="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3.5 h-3.5 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Instant Verification in 3D Showcase</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Call To Action Button -->
-                    <div class="flex-shrink-0">
-                        <button type="button"
-                                @onclick="OpenStoryModal"
-                                class="motion-btn motion-btn-lime px-8 py-4 rounded-full text-neutral-950 font-bold text-sm shadow-[0_0_25px_rgba(180,244,53,0.35)] hover:shadow-[0_0_35px_rgba(180,244,53,0.6)] flex items-center space-x-2.5 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
-                                aria-label="Open floating rate your experience modal">
-                            <span>Rate Your Experience</span>
-                            <svg class="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </button>
+                    <!-- Right Column: Interactive Inline Review Form -->
+                    <div class="lg:col-span-7 bg-[#F8F9FA] rounded-2xl p-6 sm:p-8 border border-neutral-200/90 shadow-sm">
+                        @if (submissionSuccess)
+                        {
+                            <!-- Success State Screen -->
+                            <div class="text-center py-6 space-y-4 animate-fade-in">
+                                <div class="w-14 h-14 mx-auto rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-sm">
+                                    <svg class="w-7 h-7 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-neutral-900">Review Verified &amp; Published!</h4>
+                                    <p class="text-xs sm:text-sm text-neutral-600 mt-2 max-w-sm mx-auto leading-relaxed">
+                                        Thank you, <span class="text-neutral-900 font-semibold">@reviewerName</span>. Your consultation review has been authenticated and added directly to the patient showcase carousel below.
+                                    </p>
+                                </div>
+                                <div class="pt-3">
+                                    <button type="button"
+                                            @onclick="ResetForm"
+                                            class="motion-btn motion-btn-outline px-6 py-2.5 rounded-full border border-neutral-300 hover:border-neutral-500 text-neutral-700 hover:text-black text-xs font-semibold transition cursor-pointer">
+                                        Submit Another Story
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <form @onsubmit="HandleInlineSubmit" class="space-y-4">
+                                <!-- Rating Star Picker -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-neutral-700 mb-1.5">
+                                        Consultation Rating
+                                    </label>
+                                    <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-neutral-200 shadow-2xs">
+                                        <div class="flex items-center space-x-1" @onmouseout="ClearHoverRating">
+                                            @for (int s = 1; s <= 5; s++)
+                                            {
+                                                var starIndex = s;
+                                                var isFilled = (hoverRating > 0 ? starIndex <= hoverRating : starIndex <= selectedRating);
+
+                                                <button type="button"
+                                                        @onclick="() => SetRating(starIndex)"
+                                                        @onmouseover="() => SetHoverRating(starIndex)"
+                                                        class="star-btn p-1 focus:outline-none rounded-lg text-neutral-400 cursor-pointer"
+                                                        aria-label="Rate @starIndex stars">
+                                                    @if (isFilled)
+                                                    {
+                                                        <svg class="w-6 h-6 fill-amber-400 text-amber-400" viewBox="0 0 24 24">
+                                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                                        </svg>
+                                                    }
+                                                    else
+                                                    {
+                                                        <svg class="w-6 h-6 fill-neutral-200 text-neutral-200 hover:text-neutral-400" viewBox="0 0 24 24">
+                                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                                        </svg>
+                                                    }
+                                                </button>
+                                            }
+                                        </div>
+                                        <span class="text-xs font-bold text-neutral-900 bg-brand-lime px-3 py-1 rounded-full shadow-2xs">
+                                            @EffectiveScoreText
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- 2-Column: Name & Service Category -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <div>
+                                        <label for="inlineReviewerName" class="block text-xs font-semibold text-neutral-700 mb-1">
+                                            Full Name
+                                        </label>
+                                        <input id="inlineReviewerName"
+                                               type="text"
+                                               required
+                                               @bind="reviewerName"
+                                               placeholder="e.g. Julian Hayes"
+                                               class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-900 text-xs placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition" />
+                                    </div>
+                                    <div>
+                                        <label for="inlineServiceCategory" class="block text-xs font-semibold text-neutral-700 mb-1">
+                                            Service Received
+                                        </label>
+                                        <select id="inlineServiceCategory"
+                                                @bind="selectedService"
+                                                class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-900 text-xs focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition">
+                                            <option value="Video Telehealth">Video Telehealth Consultation</option>
+                                            <option value="Home Visits">Home Doctor Visit</option>
+                                            <option value="Prescriptions">Doorstep Prescriptions</option>
+                                            <option value="Diagnostics">At-Home Lab Diagnostics</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Headline -->
+                                <div>
+                                    <label for="inlineReviewTitle" class="block text-xs font-semibold text-neutral-700 mb-1">
+                                        Review Headline
+                                    </label>
+                                    <input id="inlineReviewTitle"
+                                           type="text"
+                                           required
+                                           @bind="reviewTitle"
+                                           placeholder="e.g. Prompt, empathetic, and precise clinical guidance"
+                                           class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-900 text-xs placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition" />
+                                </div>
+
+                                <!-- Consultation Comment -->
+                                <div>
+                                    <label for="inlineReviewComment" class="block text-xs font-semibold text-neutral-700 mb-1">
+                                        Your Consultation Experience
+                                    </label>
+                                    <textarea id="inlineReviewComment"
+                                              rows="3"
+                                              required
+                                              @bind="reviewComment"
+                                              placeholder="Describe physician communication, turnaround time, or clinical outcome..."
+                                              class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-900 text-xs placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition resize-none"></textarea>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(errorMessage))
+                                {
+                                    <div class="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600">
+                                        @errorMessage
+                                    </div>
+                                }
+
+                                <!-- Submit Button -->
+                                <button type="submit"
+                                        class="motion-btn motion-btn-dark w-full py-3.5 rounded-full text-white font-bold text-xs sm:text-sm shadow-md hover:bg-neutral-800 flex items-center justify-center space-x-2 cursor-pointer transition-all duration-300">
+                                    <span>Submit &amp; Verify Story</span>
+                                    <svg class="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </button>
+                                <p class="text-center text-[11px] text-neutral-500 pt-0.5">
+                                    Zero spam &middot; HIPAA compliant feedback privacy &middot; Instant carousel verification
+                                </p>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- 3D Coverflow Showcase -->
+        <div class="mb-16 reveal-on-scroll delay-250">
+            <StaggeredTestimonials @ref="testimonialsRef" CustomReviews="activeReviews" />
         </div>
     </main>
 
-    <CtaBanner />
     <Footer />
 </div>
 
 @code {
     private StaggeredTestimonials? testimonialsRef;
 
-    private void OpenStoryModal()
+    private int selectedRating = 5;
+    private int hoverRating = 0;
+    private string reviewerName = "";
+    private string selectedService = "Video Telehealth";
+    private string reviewTitle = "";
+    private string reviewComment = "";
+    private string errorMessage = "";
+    private bool submissionSuccess = false;
+
+    private void SetRating(int rating) => selectedRating = rating;
+    private void SetHoverRating(int rating) => hoverRating = rating;
+    private void ClearHoverRating() => hoverRating = 0;
+
+    private string EffectiveScoreText
     {
-        testimonialsRef?.OpenModal();
+        get
+        {
+            int r = hoverRating > 0 ? hoverRating : selectedRating;
+            return r switch
+            {
+                5 => "5.0 - Exceptional Care",
+                4 => "4.0 - Very Good Care",
+                3 => "3.0 - Satisfactory Care",
+                2 => "2.0 - Needs Improvement",
+                _ => "1.0 - Poor Experience"
+            };
+        }
+    }
+
+    private void HandleInlineSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(reviewerName) || 
+            string.IsNullOrWhiteSpace(reviewTitle) || 
+            string.IsNullOrWhiteSpace(reviewComment))
+        {
+            errorMessage = "Please complete all fields before submitting.";
+            return;
+        }
+
+        string initials = "PT";
+        var parts = reviewerName.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length >= 2)
+        {
+            initials = $"{char.ToUpper(parts[0][0])}{char.ToUpper(parts[1][0])}";
+        }
+        else if (parts.Length == 1 && parts[0].Length >= 2)
+        {
+            initials = parts[0].Substring(0, 2).ToUpper();
+        }
+
+        string serviceLabel = selectedService switch
+        {
+            "Home Visits" => "Home Doctor Visit",
+            "Prescriptions" => "Doorstep Prescriptions",
+            "Diagnostics" => "At-Home Lab Diagnostics",
+            _ => "Urgent Telehealth"
+        };
+
+        var newReview = new StaggeredTestimonials.ReviewItem
+        {
+            Author = reviewerName.Trim(),
+            Role = $"{serviceLabel} Patient",
+            Initials = initials,
+            AvatarUrl = "",
+            Title = reviewTitle.Trim(),
+            Quote = reviewComment.Trim(),
+            Service = serviceLabel,
+            Category = selectedService,
+            Badge = "Verified Patient",
+            Rating = selectedRating,
+            TimeAgo = "Just now"
+        };
+
+        activeReviews.Insert(0, newReview);
+        submissionSuccess = true;
+        errorMessage = "";
+    }
+
+    private void ResetForm()
+    {
+        reviewerName = "";
+        reviewTitle = "";
+        reviewComment = "";
+        selectedRating = 5;
+        hoverRating = 0;
+        submissionSuccess = false;
+        errorMessage = "";
     }
 
     private List<StaggeredTestimonials.ReviewItem> activeReviews = new()
