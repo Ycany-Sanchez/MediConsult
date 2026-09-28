@@ -22,14 +22,27 @@
             </span>
         </div>
 
-        <!-- Section Heading (Vertical Stack per Section 4.7) -->
-        <div class="max-w-3xl mb-10 reveal-on-scroll delay-100">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
-                Patient Reviews &amp; Ratings
-            </h1>
-            <p class="text-neutral-600 text-base sm:text-lg mt-3 leading-relaxed max-w-2xl">
-                Verified patient feedback, clinical scores, and real experiences from consultations across all 50 states.
-            </p>
+        <!-- Section Heading & Action (Vertical Stack per Section 4.7) -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal-on-scroll delay-100">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
+                    Patient Reviews &amp; Ratings
+                </h1>
+                <p class="text-neutral-600 text-base sm:text-lg mt-3 leading-relaxed">
+                    Verified patient feedback, clinical scores, and real experiences from consultations across all 50 states.
+                </p>
+            </div>
+            <div>
+                <button type="button"
+                        @onclick="OpenStoryModal"
+                        class="motion-btn motion-btn-dark px-6 py-3.5 rounded-full text-white text-xs font-semibold hover:bg-neutral-800 transition flex items-center space-x-2.5 group shadow-sm flex-shrink-0 cursor-pointer"
+                        aria-label="Open review modal">
+                    <span class="w-5 h-5 rounded-full bg-brand-lime text-neutral-950 flex items-center justify-center font-bold text-xs group-hover:rotate-45 transition-transform duration-300">
+                        +
+                    </span>
+                    <span>Share Your Story</span>
+                </button>
+            </div>
         </div>
 
         <!-- Aggregate Score Bento Strip -->
@@ -127,173 +140,68 @@
 
         <!-- 3D Coverflow Showcase (Matching Reference Image) -->
         <div class="mb-16 reveal-on-scroll delay-200">
-            <StaggeredTestimonials CustomReviews="activeReviews" />
+            <StaggeredTestimonials @ref="testimonialsRef" CustomReviews="activeReviews" />
         </div>
 
-        <!-- Review Submission Form Section -->
-        <div class="max-w-3xl mx-auto reveal-on-scroll delay-250">
-            <div class="bg-[#F8F9FA] rounded-3xl p-8 sm:p-10 border border-neutral-200/90 shadow-sm">
-                <div class="mb-8 text-center max-w-lg mx-auto">
-                    <span class="inline-block px-3 py-1 rounded-lg bg-neutral-200 text-neutral-800 text-xs font-bold uppercase tracking-wider mb-2">
-                        Share Your Story
-                    </span>
-                    <h2 class="text-3xl font-bold tracking-tight text-neutral-900">Rate Your Experience</h2>
-                    <p class="text-neutral-500 text-sm mt-1.5 leading-relaxed">
-                        Help fellow patients choose the right care provider. All reviews are cross-referenced with verified consultation records.
-                    </p>
-                </div>
+        <!-- Clinical Experience Invitation Banner -->
+        <div class="max-w-4xl mx-auto reveal-on-scroll delay-250 mb-12">
+            <div class="bg-[#0D1016] text-white rounded-3xl p-8 sm:p-12 border border-neutral-800 shadow-2xl relative overflow-hidden group">
+                <div class="absolute -right-16 -top-16 w-60 h-60 rounded-full bg-brand-lime/10 blur-[90px] pointer-events-none"></div>
 
-                @if (submissionSuccess)
-                {
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 mb-8 text-neutral-900">
-                        <div class="flex items-center space-x-2.5 text-emerald-800 font-bold text-base mb-1">
-                            <svg class="w-5 h-5 text-emerald-600 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Review Submitted and Verified!</span>
+                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div class="max-w-xl">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="inline-block px-3 py-1 rounded-lg bg-brand-lime text-neutral-950 text-xs font-bold uppercase tracking-wider shadow-xs">
+                                Share Your Story
+                            </span>
+                            <span class="text-xs text-neutral-400 font-medium">
+                                Verified Patient Registry
+                            </span>
                         </div>
-                        <p class="text-xs sm:text-sm text-emerald-700 leading-relaxed">
-                            Thank you for your feedback. Your review has been added to our verified patient registry and is now live on the showcase above.
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                            Had a consultation with a MediConsult physician?
+                        </h2>
+                        <p class="text-neutral-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Your feedback directly informs physician clinical performance and helps future patients navigate their care options. All ratings are authenticated via HIPAA-compliant verification.
                         </p>
-                        <button type="button" 
-                                @onclick="ResetForm" 
-                                class="mt-4 inline-flex items-center space-x-1.5 text-xs font-bold text-neutral-900 underline hover:text-neutral-700">
-                            <span>Submit another review</span>
-                            <span>&rarr;</span>
+
+                        <!-- Trust Badges -->
+                        <div class="flex flex-wrap items-center gap-4 text-xs text-neutral-400 mt-6 pt-6 border-t border-neutral-800/80">
+                            <span class="flex items-center space-x-1.5">
+                                <svg class="w-4 h-4 text-brand-lime stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <span>100% Verified Records</span>
+                            </span>
+                            <span class="flex items-center space-x-1.5">
+                                <svg class="w-4 h-4 text-brand-lime stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                                <span>HIPAA Privacy Protected</span>
+                            </span>
+                            <span class="flex items-center space-x-1.5">
+                                <svg class="w-4 h-4 text-brand-lime stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <span>Instant Showcase Display</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Call To Action Button -->
+                    <div class="flex-shrink-0">
+                        <button type="button"
+                                @onclick="OpenStoryModal"
+                                class="motion-btn motion-btn-lime px-8 py-4 rounded-full text-neutral-950 font-bold text-sm shadow-[0_0_25px_rgba(180,244,53,0.35)] hover:shadow-[0_0_35px_rgba(180,244,53,0.6)] flex items-center space-x-2.5 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                                aria-label="Open floating rate your experience modal">
+                            <span>Rate Your Experience</span>
+                            <svg class="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
                         </button>
                     </div>
-                }
-
-                <form @onsubmit="HandleReviewSubmit" class="space-y-6">
-                    <!-- 1. Interactive Star Rating Selector -->
-                    <div>
-                        <label class="block text-xs font-semibold text-neutral-800 mb-2">
-                            Select Consultation Rating
-                        </label>
-                        
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white rounded-2xl border border-neutral-200 shadow-2xs">
-                            <div class="flex items-center space-x-1.5" @onmouseout="ClearHoverRating">
-                                @for (int s = 1; s <= 5; s++)
-                                {
-                                    var starIndex = s;
-                                    var isFilled = (hoverRating > 0 ? starIndex <= hoverRating : starIndex <= selectedRating);
-
-                                    <button type="button"
-                                            @onclick="() => SetRating(starIndex)"
-                                            @onmouseover="() => SetHoverRating(starIndex)"
-                                            class="star-btn p-1 focus:outline-none focus:ring-2 focus:ring-neutral-900 rounded-lg text-neutral-300"
-                                            aria-label="Rate @starIndex stars out of 5">
-                                        @if (isFilled)
-                                        {
-                                            <svg class="w-8 h-8 fill-amber-400 text-amber-400 transition-colors duration-150" viewBox="0 0 24 24">
-                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                            </svg>
-                                        }
-                                        else
-                                        {
-                                            <svg class="w-8 h-8 fill-neutral-200 text-neutral-200 transition-colors duration-150" viewBox="0 0 24 24">
-                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                            </svg>
-                                        }
-                                    </button>
-                                }
-                            </div>
-                            
-                            <span class="text-xs font-bold text-neutral-900 bg-neutral-100 px-3 py-1.5 rounded-xl border border-neutral-200 self-start sm:self-auto">
-                                @EffectiveScoreText
-                            </span>
-                        </div>
-
-                        <p class="text-xs text-neutral-500 mt-2 font-medium">
-                            @GetRatingDescription(hoverRating > 0 ? hoverRating : selectedRating)
-                        </p>
-                    </div>
-
-                    <!-- 2-Column Row: Name & Service -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <!-- Full Name -->
-                        <div>
-                            <label for="reviewerName" class="block text-xs font-semibold text-neutral-800 mb-1.5">
-                                Full Name
-                            </label>
-                            <input id="reviewerName" 
-                                   type="text" 
-                                   required 
-                                   @bind="reviewerName"
-                                   placeholder="e.g. Julian Hayes" 
-                                   class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-neutral-900 transition" />
-                            <span class="block text-[11px] text-neutral-500 mt-1">
-                                Will be displayed with your verified patient badge.
-                            </span>
-                        </div>
-
-                        <!-- Service Category -->
-                        <div>
-                            <label for="serviceCategory" class="block text-xs font-semibold text-neutral-800 mb-1.5">
-                                Consultation Service
-                            </label>
-                            <select id="serviceCategory" 
-                                    @bind="selectedService"
-                                    class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-neutral-900 transition">
-                                <option value="Video Telehealth">Video Telehealth Consultation</option>
-                                <option value="Home Visits">Home Doctor Visit</option>
-                                <option value="Prescriptions">Doorstep Prescription Delivery</option>
-                                <option value="Diagnostics">At-Home Lab Diagnostics</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Review Headline -->
-                    <div>
-                        <label for="reviewTitle" class="block text-xs font-semibold text-neutral-800 mb-1.5">
-                            Review Headline
-                        </label>
-                        <input id="reviewTitle" 
-                               type="text" 
-                               required 
-                               @bind="reviewTitle"
-                               placeholder="e.g. Prompt, compassionate, and precise care" 
-                               class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-neutral-900 transition" />
-                    </div>
-
-                    <!-- Review Comments Textarea -->
-                    <div>
-                        <label for="reviewComment" class="block text-xs font-semibold text-neutral-800 mb-1.5">
-                            Your Consultation Experience
-                        </label>
-                        <textarea id="reviewComment" 
-                                  rows="3" 
-                                  required 
-                                  @bind="reviewComment"
-                                  placeholder="Describe details about the physician's communication, turnaround time, or treatment outcome..."
-                                  class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-neutral-900 transition resize-none"></textarea>
-                        <span class="block text-[11px] text-neutral-500 mt-1">
-                            Keep feedback focused and concise (2 to 3 sentences recommended).
-                        </span>
-                    </div>
-
-                    <!-- Error Alert -->
-                    @if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        <div class="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-medium">
-                            @errorMessage
-                        </div>
-                    }
-
-                    <!-- Submit Button -->
-                    <button type="submit" 
-                            class="motion-btn motion-btn-dark w-full py-4 rounded-full bg-brand-dark text-white text-sm font-semibold hover:bg-black transition duration-200 shadow-md flex items-center justify-center space-x-2">
-                        <span>Submit Patient Review</span>
-                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </button>
-
-                    <p class="text-center text-[11px] text-neutral-400 pt-1">
-                        Zero spam policy &middot; HIPAA compliant feedback privacy
-                    </p>
-                </form>
+                </div>
             </div>
         </div>
     </main>
@@ -303,14 +211,12 @@
 </div>
 
 @code {
-    private int selectedRating = 5;
-    private int hoverRating = 0;
-    private string reviewerName = "";
-    private string selectedService = "Video Telehealth";
-    private string reviewTitle = "";
-    private string reviewComment = "";
-    private string errorMessage = "";
-    private bool submissionSuccess = false;
+    private StaggeredTestimonials? testimonialsRef;
+
+    private void OpenStoryModal()
+    {
+        testimonialsRef?.OpenModal();
+    }
 
     private List<StaggeredTestimonials.ReviewItem> activeReviews = new()
     {
@@ -413,95 +319,4 @@
             TimeAgo = "1 month ago"
         }
     };
-
-    private string EffectiveScoreText => $"{(hoverRating > 0 ? hoverRating : selectedRating)}.0 / 5.0";
-
-    private void SetRating(int rating)
-    {
-        selectedRating = rating;
-    }
-
-    private void SetHoverRating(int rating)
-    {
-        hoverRating = rating;
-    }
-
-    private void ClearHoverRating()
-    {
-        hoverRating = 0;
-    }
-
-    private string GetRatingDescription(int rating)
-    {
-        return rating switch
-        {
-            5 => "5.0 out of 5: Exceptional clinical care and speed",
-            4 => "4.0 out of 5: Very good consultation experience",
-            3 => "3.0 out of 5: Satisfactory clinical care",
-            2 => "2.0 out of 5: Below expectations",
-            1 => "1.0 out of 5: Unsatisfactory service",
-            _ => "Select star score to rate"
-        };
-    }
-
-    private void HandleReviewSubmit()
-    {
-        errorMessage = "";
-
-        if (string.IsNullOrWhiteSpace(reviewerName) || string.IsNullOrWhiteSpace(reviewComment))
-        {
-            errorMessage = "Please provide your full name and consultation comments.";
-            return;
-        }
-
-        string initials = "PT";
-        var parts = reviewerName.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length >= 2)
-        {
-            initials = $"{char.ToUpper(parts[0][0])}{char.ToUpper(parts[1][0])}";
-        }
-        else if (parts.Length == 1 && parts[0].Length >= 2)
-        {
-            initials = parts[0].Substring(0, 2).ToUpper();
-        }
-
-        string serviceLabel = selectedService switch
-        {
-            "Home Visits" => "Home Doctor Visit",
-            "Prescriptions" => "Doorstep Prescriptions",
-            "Diagnostics" => "At-Home Lab Diagnostics",
-            _ => "Urgent Telehealth"
-        };
-
-        var newReview = new StaggeredTestimonials.ReviewItem
-        {
-            Author = reviewerName.Trim(),
-            Role = $"{serviceLabel} Patient",
-            Initials = initials,
-            AvatarUrl = "",
-            Title = string.IsNullOrWhiteSpace(reviewTitle) ? "Verified Patient Feedback" : reviewTitle.Trim(),
-            Quote = reviewComment.Trim(),
-            Service = serviceLabel,
-            Category = selectedService,
-            Badge = "Verified Patient",
-            Rating = selectedRating,
-            TimeAgo = "Just now"
-        };
-
-        // Prepend to active list for immediate feedback
-        activeReviews.Insert(0, newReview);
-
-        // Reset inputs and show success
-        reviewerName = "";
-        reviewTitle = "";
-        reviewComment = "";
-        selectedRating = 5;
-        submissionSuccess = true;
-    }
-
-    private void ResetForm()
-    {
-        submissionSuccess = false;
-        errorMessage = "";
-    }
 }

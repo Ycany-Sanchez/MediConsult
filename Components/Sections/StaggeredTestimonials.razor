@@ -23,16 +23,32 @@
             </p>
         </div>
 
-        <!-- Category Filter Pills -->
-        <div class="flex flex-wrap items-center gap-2">
-            @foreach (var cat in categories)
-            {
-                <button type="button"
-                        @onclick="() => SelectCategory(cat)"
-                        class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ease-spring @(selectedCategory == cat ? "bg-brand-lime text-neutral-950 font-bold shadow-sm scale-[1.02]" : "bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800")">
-                    @cat
-                </button>
-            }
+        <!-- Category Filter Pills & Share Your Story Action -->
+        <div class="flex flex-wrap items-center gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+                @foreach (var cat in categories)
+                {
+                    <button type="button"
+                            @onclick="() => SelectCategory(cat)"
+                            class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ease-spring @(selectedCategory == cat ? "bg-brand-lime text-neutral-950 font-bold shadow-sm scale-[1.02]" : "bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800")">
+                        @cat
+                    </button>
+                }
+            </div>
+
+            <!-- Distinctive "Share Your Story" Button -->
+            <button type="button"
+                    @onclick="OpenModal"
+                    class="motion-btn group inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-brand-lime via-[#C5FF4D] to-brand-lime text-neutral-950 font-bold text-xs shadow-[0_0_20px_rgba(180,244,53,0.35)] hover:shadow-[0_0_32px_rgba(180,244,53,0.6)] border border-lime-300 transition-all duration-200 hover:scale-[1.03] active:scale-95 flex-shrink-0 cursor-pointer"
+                    aria-label="Share your consultation story and rate your experience">
+                <span class="w-4 h-4 rounded-full bg-neutral-950 text-brand-lime flex items-center justify-center flex-shrink-0 group-hover:rotate-45 transition-transform duration-300">
+                    <svg class="w-2.5 h-2.5 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </span>
+                <span>Share Your Story</span>
+            </button>
         </div>
     </div>
 
@@ -188,7 +204,7 @@
         <!-- Next Button -->
         <button type="button" 
                 @onclick="NextCard" 
-                class="motion-btn w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-700/80 hover:border-brand-lime text-white hover:text-brand-lime flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md group"
+                class="motion-btn w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-700/80 hover:border-brand-lime text-white hover:text-brand-lime flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md group cursor-pointer"
                 aria-label="Next testimonial">
             <svg class="w-5 h-5 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -197,12 +213,226 @@
     </div>
 </div>
 
+@if (isModalOpen)
+{
+    <!-- Floating Rate Your Experience Modal Overlay -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fade-in"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="modalTitle">
+        
+        <!-- Backdrop Blur Curtain (Click Outside Dismisses) -->
+        <div class="fixed inset-0 bg-neutral-950/80 backdrop-blur-md transition-opacity duration-300"
+             @onclick="CloseModal"></div>
+
+        <!-- Floating Dialog Card -->
+        <div class="relative w-full max-w-xl bg-[#0D1016] text-white rounded-3xl border border-neutral-800 shadow-[0_25px_80px_rgba(0,0,0,0.95)] p-6 sm:p-8 overflow-hidden z-10 my-auto animate-modal-float select-text">
+            <!-- Ambient Stage Glow inside modal -->
+            <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-44 bg-brand-lime/15 blur-[80px] rounded-full pointer-events-none"></div>
+
+            <!-- Top Row: Eyebrow + Close Button -->
+            <div class="relative z-10 flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-2.5">
+                    <span class="inline-block px-3 py-1 rounded-lg bg-brand-lime text-neutral-950 text-[11px] font-bold uppercase tracking-wider shadow-xs">
+                        Share Your Story
+                    </span>
+                    <span class="text-xs text-neutral-400 font-medium flex items-center space-x-1">
+                        <svg class="w-3.5 h-3.5 text-brand-lime flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        <span>HIPAA-Verified</span>
+                    </span>
+                </div>
+
+                <button type="button"
+                        @onclick="CloseModal"
+                        class="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+                        aria-label="Close dialog">
+                    <svg class="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <div class="relative z-10 mb-5">
+                <h3 id="modalTitle" class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+                    Rate Your Experience
+                </h3>
+                <p class="text-neutral-400 text-xs sm:text-sm mt-1 leading-relaxed">
+                    Help fellow patients make informed healthcare decisions. Your review will be cross-referenced with your consultation record and featured directly in the patient showcase carousel.
+                </p>
+            </div>
+
+            @if (submissionSuccess)
+            {
+                <!-- Success State Screen -->
+                <div class="relative z-10 bg-[#161B24] border border-brand-lime/30 rounded-2xl p-6 text-center space-y-4">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-brand-lime/20 border border-brand-lime/40 flex items-center justify-center text-brand-lime shadow-[0_0_20px_rgba(180,244,53,0.3)]">
+                        <svg class="w-7 h-7 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Review Verified &amp; Published!</h4>
+                        <p class="text-xs sm:text-sm text-neutral-400 mt-1 max-w-sm mx-auto leading-relaxed">
+                            Thank you, <span class="text-white font-semibold">@reviewerName</span>! Your consultation review has been verified and added to the 3D coverflow showcase.
+                        </p>
+                    </div>
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button type="button"
+                                @onclick="CloseModalAndFocusCard"
+                                class="motion-btn motion-btn-lime px-6 py-2.5 rounded-full text-neutral-950 font-bold text-xs shadow-md cursor-pointer">
+                            View In Carousel &rarr;
+                        </button>
+                        <button type="button"
+                                @onclick="ResetModalForm"
+                                class="px-5 py-2.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white text-xs font-semibold transition cursor-pointer">
+                            Submit Another Review
+                        </button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Submission Form -->
+                <form @onsubmit="HandleModalSubmit" class="relative z-10 space-y-4">
+                    <!-- Rating Star Picker -->
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-300 mb-1.5">
+                            Consultation Rating
+                        </label>
+                        <div class="flex items-center justify-between p-3.5 bg-[#161B24] rounded-2xl border border-neutral-800">
+                            <div class="flex items-center space-x-1" @onmouseout="ClearHoverRating">
+                                @for (int s = 1; s <= 5; s++)
+                                {
+                                    var starIndex = s;
+                                    var isFilled = (hoverRating > 0 ? starIndex <= hoverRating : starIndex <= selectedRating);
+
+                                    <button type="button"
+                                            @onclick="() => SetRating(starIndex)"
+                                            @onmouseover="() => SetHoverRating(starIndex)"
+                                            class="star-btn p-1 focus:outline-none rounded-lg text-neutral-500 cursor-pointer"
+                                            aria-label="Rate @starIndex stars">
+                                        @if (isFilled)
+                                        {
+                                            <svg class="w-7 h-7 fill-amber-400 text-amber-400" viewBox="0 0 24 24">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <svg class="w-7 h-7 fill-neutral-700 text-neutral-700 hover:text-neutral-500" viewBox="0 0 24 24">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                            </svg>
+                                        }
+                                    </button>
+                                }
+                            </div>
+                            <span class="text-xs font-bold text-brand-lime bg-brand-lime/10 px-3 py-1 rounded-full border border-brand-lime/20">
+                                @EffectiveScoreText
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 2-Column: Name & Service -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div>
+                            <label for="modalReviewerName" class="block text-xs font-semibold text-neutral-300 mb-1">
+                                Full Name
+                            </label>
+                            <input id="modalReviewerName"
+                                   type="text"
+                                   required
+                                   @bind="reviewerName"
+                                   placeholder="e.g. Julian Hayes"
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-[#161B24] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-brand-lime focus:ring-1 focus:ring-brand-lime transition" />
+                        </div>
+                        <div>
+                            <label for="modalServiceCategory" class="block text-xs font-semibold text-neutral-300 mb-1">
+                                Service Received
+                            </label>
+                            <select id="modalServiceCategory"
+                                    @bind="selectedService"
+                                    class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-[#161B24] text-white text-xs focus:outline-none focus:border-brand-lime focus:ring-1 focus:ring-brand-lime transition">
+                                <option value="Video Telehealth">Video Telehealth Consultation</option>
+                                <option value="Home Visits">Home Doctor Visit</option>
+                                <option value="Prescriptions">Doorstep Prescriptions</option>
+                                <option value="Diagnostics">At-Home Lab Diagnostics</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Headline -->
+                    <div>
+                        <label for="modalReviewTitle" class="block text-xs font-semibold text-neutral-300 mb-1">
+                            Review Headline
+                        </label>
+                        <input id="modalReviewTitle"
+                               type="text"
+                               required
+                               @bind="reviewTitle"
+                               placeholder="e.g. Prompt, empathetic, and precise clinical guidance"
+                               class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-[#161B24] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-brand-lime focus:ring-1 focus:ring-brand-lime transition" />
+                    </div>
+
+                    <!-- Experience Comment -->
+                    <div>
+                        <label for="modalReviewComment" class="block text-xs font-semibold text-neutral-300 mb-1">
+                            Your Consultation Experience
+                        </label>
+                        <textarea id="modalReviewComment"
+                                  rows="3"
+                                  required
+                                  @bind="reviewComment"
+                                  placeholder="Describe details regarding physician communication, turnaround time, or clinical outcome..."
+                                  class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-[#161B24] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-brand-lime focus:ring-1 focus:ring-brand-lime transition resize-none"></textarea>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <div class="p-3 bg-red-950/60 border border-red-800 rounded-xl text-xs text-red-300">
+                            @errorMessage
+                        </div>
+                    }
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                            class="motion-btn motion-btn-lime w-full py-3.5 rounded-full text-neutral-950 font-bold text-xs sm:text-sm shadow-[0_4px_20px_rgba(180,244,53,0.3)] hover:shadow-[0_8px_30px_rgba(180,244,53,0.5)] flex items-center justify-center space-x-2 cursor-pointer">
+                        <span>Submit &amp; Verify Story</span>
+                        <svg class="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                    <p class="text-center text-[10px] text-neutral-500 pt-0.5">
+                        Zero spam &middot; HIPAA compliant feedback privacy &middot; Instant carousel verification
+                    </p>
+                </form>
+            }
+        </div>
+    </div>
+}
+
 @code {
     [Parameter] public List<ReviewItem>? CustomReviews { get; set; }
+    [Parameter] public EventCallback<ReviewItem> OnReviewAdded { get; set; }
 
     // Start on index 1 so flanking cards are visible on both left and right on load
     private int activeIndex = 1;
     private string selectedCategory = "All Reviews";
+
+    // Floating Modal & Review Form State
+    private bool isModalOpen = false;
+    private bool submissionSuccess = false;
+    private int selectedRating = 5;
+    private int hoverRating = 0;
+    private string reviewerName = "";
+    private string selectedService = "Video Telehealth";
+    private string reviewTitle = "";
+    private string reviewComment = "";
+    private string errorMessage = "";
 
     private readonly List<string> categories = new()
     {
@@ -351,6 +581,123 @@
     private void SelectCard(int index)
     {
         activeIndex = index;
+    }
+
+    public void OpenModal()
+    {
+        submissionSuccess = false;
+        errorMessage = "";
+        isModalOpen = true;
+        StateHasChanged();
+    }
+
+    public void CloseModal()
+    {
+        isModalOpen = false;
+        StateHasChanged();
+    }
+
+    private void CloseModalAndFocusCard()
+    {
+        isModalOpen = false;
+        activeIndex = 0;
+        selectedCategory = "All Reviews";
+        StateHasChanged();
+    }
+
+    private void ResetModalForm()
+    {
+        reviewerName = "";
+        reviewTitle = "";
+        reviewComment = "";
+        selectedRating = 5;
+        hoverRating = 0;
+        submissionSuccess = false;
+        errorMessage = "";
+    }
+
+    private void SetRating(int rating) => selectedRating = rating;
+    private void SetHoverRating(int rating) => hoverRating = rating;
+    private void ClearHoverRating() => hoverRating = 0;
+
+    private string EffectiveScoreText
+    {
+        get
+        {
+            int r = hoverRating > 0 ? hoverRating : selectedRating;
+            return r switch
+            {
+                5 => "5.0 - Exceptional Care",
+                4 => "4.0 - Very Good Care",
+                3 => "3.0 - Satisfactory Care",
+                2 => "2.0 - Needs Improvement",
+                _ => "1.0 - Poor Experience"
+            };
+        }
+    }
+
+    private async Task HandleModalSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(reviewerName) || 
+            string.IsNullOrWhiteSpace(reviewTitle) || 
+            string.IsNullOrWhiteSpace(reviewComment))
+        {
+            errorMessage = "Please complete all fields before submitting.";
+            return;
+        }
+
+        string initials = "PT";
+        var parts = reviewerName.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length >= 2)
+        {
+            initials = $"{char.ToUpper(parts[0][0])}{char.ToUpper(parts[1][0])}";
+        }
+        else if (parts.Length == 1 && parts[0].Length >= 2)
+        {
+            initials = parts[0].Substring(0, 2).ToUpper();
+        }
+
+        string serviceLabel = selectedService switch
+        {
+            "Home Visits" => "Home Doctor Visit",
+            "Prescriptions" => "Doorstep Prescriptions",
+            "Diagnostics" => "At-Home Lab Diagnostics",
+            _ => "Urgent Telehealth"
+        };
+
+        var newReview = new ReviewItem
+        {
+            Author = reviewerName.Trim(),
+            Role = $"{serviceLabel} Patient",
+            Initials = initials,
+            AvatarUrl = "",
+            Title = reviewTitle.Trim(),
+            Quote = reviewComment.Trim(),
+            Service = serviceLabel,
+            Category = selectedService,
+            Badge = "Verified Patient",
+            Rating = selectedRating,
+            TimeAgo = "Just now"
+        };
+
+        if (CustomReviews != null)
+        {
+            CustomReviews.Insert(0, newReview);
+        }
+        else
+        {
+            defaultReviews.Insert(0, newReview);
+        }
+
+        if (OnReviewAdded.HasDelegate)
+        {
+            await OnReviewAdded.InvokeAsync(newReview);
+        }
+
+        selectedCategory = "All Reviews";
+        activeIndex = 0;
+        submissionSuccess = true;
+        errorMessage = "";
     }
 
     private string GetCard3DStyle(int offset)
