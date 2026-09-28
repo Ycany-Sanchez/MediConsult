@@ -291,3 +291,79 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+/* Star Rating Interaction & Tactile Feedback */
+.star-btn {
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s ease, filter 0.2s ease;
+}
+
+.star-btn:hover {
+    transform: scale(1.22);
+}
+
+.star-btn:active {
+    transform: scale(0.92) !important;
+}
+
+/* ==========================================================================
+   3D COVERFLOW TESTIMONIALS CAROUSEL (Angled Cards, Perspective Stacking)
+   ========================================================================== */
+
+.coverflow-viewport {
+    perspective: 1400px;
+    perspective-origin: 50% 50%;
+    transform-style: preserve-3d;
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.coverflow-card {
+    position: absolute;
+    width: 410px;
+    max-width: 86vw;
+    height: 410px;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                filter 0.4s ease;
+    will-change: transform, opacity;
+    user-select: none;
+}
+
+/* Chamfered Dog-Ear Top-Right Corner */
+.chamfer-clip {
+    clip-path: polygon(0 0, calc(100% - 38px) 0, 100% 38px, 100% 100%, 0 100%);
+}
+
+.chamfer-clip-sm {
+    clip-path: polygon(0 0, calc(100% - 37px) 0, 100% 37px, 100% 100%, 0 100%);
+}
+
+@media (max-width: 640px) {
+    .coverflow-viewport {
+        min-height: 460px;
+    }
+    .coverflow-card {
+        width: 330px;
+        height: 420px;
+    }
+    .chamfer-clip {
+        clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+    }
+    .chamfer-clip-sm {
+        clip-path: polygon(0 0, calc(100% - 27px) 0, 100% 27px, 100% 100%, 0 100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .coverflow-card {
+        transition: opacity 0.2s ease !important;
+        transform: none !important;
+    }
+}
