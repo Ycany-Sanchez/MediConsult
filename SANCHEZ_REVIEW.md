@@ -6,12 +6,12 @@
 
 ## Project Structure Rating: 8 / 10
 
-The folders are easy to follow. `Components` is split into `Pages`, `Layout`, `Sections`, and `Common`, so `Home.razor` is short and just puts the sections together. Names are clear and the images, css, and js are separated in `wwwroot`, plus the README and commits are clean. I didn't give a 10 since it's still not done — there's no backend folders yet, `MainLayout` is barely used and Navbar/Footer are just pasted on each page, and there are two `app.css` files that need cleanup.
+Files are split cleanly into Pages, Layout, Sections, and Common with clear PascalCase names, and Home stays short by loading sections. Commits use feat, fix, and chore well and the repo is tidy with gitignore and no bin or obj files. It is not a 10 because the project is still not complete, MainLayout is barely used, and there are two app css files to fix.
 
 ---
 
 ## Front-End Rating: 9 / 10
 
-The site looks clean and everything matches. Same font, colors, and buttons on all pages, and the how-it-works simulator and reviews coverflow are nice to use. It works on mobile too with the hamburger menu and the layout stacks fine. I didn't give a 10 since it's not finished — login/signup don't really work yet, Tailwind is still just CDN, and there's some unused default CSS left.
+The layout looks clean with the same font, colors, and buttons on all pages, and text is big and easy to read. Navigation is simple with working links, a mobile hamburger menu, and pages that stack well on small screens. It is not a 10 because the project is still not complete, forms and login are visual only, and Tailwind is still on CDN with some unused CSS left.
 
 ---
